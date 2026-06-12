@@ -159,6 +159,7 @@ flowchart LR
 | "I want to build a journal app" | [The Journal App](./cases/02-the-journal-app.md) |
 | "Turn my report into slides" | [Report to Slides](./cases/03-report-to-slides.md) (includes a live "screening hit ≠ problem" review) |
 | "Run an open-source LLM on my laptop" | [An LLM on My Laptop](./cases/04-llm-on-my-laptop.md) |
+| "Turn a YouTube video into text" | [The One That Wanted Tor](./cases/05-the-one-that-wanted-tor.md) — finding the whole field showed the flashiest result was the wrong one |
 
 **Advanced (developer-facing)**: the giants are placing help into this
 ecosystem too — [Even This Niche](./cases/advanced/even-this-niche.md),

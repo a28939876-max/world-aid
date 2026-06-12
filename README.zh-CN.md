@@ -135,6 +135,7 @@ flowchart LR
 | "我想做一个手帐式 app" | [我想做一个手帐式 app](./cases/02-the-journal-app.md) |
 | "把我的报告做成一份 PPT" | [把报告做成一份 PPT](./cases/03-report-to-slides.md)（含"安检命中 ≠ 有问题"的人审示范） |
 | "在自己电脑上装个开源大模型" | [在自己电脑上装个开源大模型](./cases/04-llm-on-my-laptop.md) |
+| "把一个 YouTube 视频转成文字" | [差点选了那个"功能最全"的](./cases/05-the-one-that-wanted-tor.md)——找全这一片，才看出最唬人的那个不对口 |
 
 **进阶案例（开发者向）**：巨头也在往这个生态里放帮助——[这么冷门也有人做了](./cases/advanced/even-this-niche.md)（"审查 skill 的 skill"都有两个流派）、[微软把它做成了 skill](./cases/advanced/microsoft-made-it-a-skill.md)（官方 17 文件工程级 skill）、[连 NVIDIA 都来帮忙](./cases/advanced/nvidia-shows-up.md)（企业级扫描器，好到我们放弃自造直接采用）。
 
