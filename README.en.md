@@ -12,12 +12,15 @@
 
 ## The world may already be ready to help you
 
-> You have a need and you're about to build from scratch.
-> What you don't know: someone already made it as a skill and open-sourced
-> it — maybe buried three folders deep in a collection repo; maybe sitting
-> among eight identical copies in your search results, one of which stripped
-> the original author's credit; maybe in eight genuinely different flavors
-> waiting for you to pick the right one.
+> Want to clip web articles? Someone already built it — including a batch
+> mode you hadn't even planned.
+> Want a "skill that reviews skills"? That niche has two whole schools of
+> thought.
+> Deploying Azure models? Microsoft packaged the entire workflow as a skill.
+> Worried about unsafe third-party skills? NVIDIA open-sourced an
+> enterprise-grade scanner.
+>
+> (All real finds — see [cases/](./cases/).)
 >
 > Help was never the missing piece. The missing piece is the line that
 > **finds it, vets it, and connects it to you.**
@@ -30,7 +33,7 @@ install and use.**
 | Your situation | What it does |
 |---|---|
 | A need, and no desire to reinvent the wheel | Searches across sources and **groups N copies of the same skill into one family** — the decision shrinks from "pick one of eight" to "yes or no" |
-| Candidates that are hard to tell apart | Lineage tracing identifies the origin, the mirrors, and the copies with stripped credits — credit goes back to the author, the right version goes to you |
+| Candidates that are hard to tell apart | Identifies the source and the repost-mirrors (reposts often strip the license and publisher info) — the right version goes to you |
 | Worried about stowaway instructions | Pre-install screening of **every file** (not just SKILL.md); suspicious hits refuse to install by default until human-reviewed |
 
 Also serves **skill authors** (when a repost strips your name, lineage puts
@@ -39,12 +42,13 @@ it back) and **collection maintainers** (batch-screen copies and injections).
 ### How we use it ourselves
 
 This pipeline started as our own routine, not an open-source project: for
-every new need, let the world help first, build only if it can't. The two
-[cases/](./cases/) are typical picks from many real uses — once we caught a
-marketplace copy that had stripped Microsoft's credit; once the same eight
-results turned out to be eight genuinely different implementations.
-**Plainly put: after you've seen the #1 search result be a credit-stripped
-mirror of #2, you never install raw search results again.**
+every new need, **let the world help first, build only if it can't.** The
+four [cases/](./cases/) are typical picks from many real finds: we thought
+we'd write a scraper — someone had built it with a batch mode; we thought a
+niche was too obscure — it had two schools of thought; we thought we'd grind
+through docs — Microsoft had packaged the workflow; we thought we'd maintain
+our own scanner — NVIDIA showed up. **Plainly put: the more we search first,
+the less we build from scratch.**
 
 ## What's inside
 
@@ -87,14 +91,16 @@ python3 scripts/ensure_lineage.py
 python3 scripts/install_skill.py <github-tree-url> --dest ~/.claude/skills --dry-run
 ```
 
-## Real cases
+## Real cases: the need, and what the world had ready
 
-> Two typical write-ups picked from many real uses — not the full list.
+> Four typical write-ups picked from many real finds — not the full list.
 
-| Case | One-line spoiler |
+| The need | What the world had ready |
 |---|---|
-| [The Stripped Credit](./cases/01-the-stripped-credit.md) | The #1 search result (349 stars) was a mirror of #2 whose only "changes" were deleting `license: MIT` and `author: Microsoft` — the pipeline installed the origin instead |
-| [Eight Results, Eight Kinds](./cases/02-eight-results-eight-kinds.md) | The same eight results: once a family of eight copies, once eight distinct implementations — family shape decides which branch to take |
+| [The Scraper I Never Wrote](./cases/01-the-scraper-i-never-wrote.md): clip web articles to local Markdown | 12 candidates in 8 flavors; the one we connected even had a batch mode we hadn't planned |
+| [Even This Niche](./cases/02-even-this-niche.md): a tool that reviews installed skills | 10+ candidates in two complementary schools (static rule audit vs. runtime transcript audit) — we took mechanisms from both |
+| [Microsoft Made It a Skill](./cases/03-microsoft-made-it-a-skill.md): deploy Azure OpenAI models | Microsoft's official 17-file skill (presets / full customization / capacity discovery); the pipeline also picked the official source out of 8 repost copies |
+| [NVIDIA Shows Up](./cases/04-nvidia-shows-up.md): security-scan skills before installing | NVIDIA's official enterprise-grade scanner (64 patterns × 16 categories) — good enough that we adopted it instead of building our own |
 
 ## Pairs well with
 
