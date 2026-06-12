@@ -6,58 +6,110 @@
 
 [中文](./README.md)
 
-**A just cause attracts abundant help.** *(得道多助 — Mencius)*
+**A just cause attracts abundant help** *(得道多助 — Mencius)*. If what you
+want to do is good for the world, the world has already prepared help — this
+tool **finds it, vets it, and connects it to you.**
 
 ---
 
 ## You state a need, the world answers
 
-| You say | What the world had ready (real pipeline runs) |
-|---|---|
-| "I want to build a journal app" | `bm-life-journal`: a ready-made journaling workflow (diary / weekly review / monthly reflection / growth tracking) — plus a gamified phone-app prototype template from a 62,000+ star design collection for the looks |
-| "Turn my report into slides" | 16 candidates in 15 flavors: Markdown-to-real-.pptx with auto layouts (201 stars), AI-illustrated decks (2,563 stars), Word-to-PPT direct — pick by the format you have |
-| "Run an open-source LLM on my laptop" | `local-llm-setup`: four routes (Ollama / LM Studio / llama.cpp / vLLM) chosen by your hardware, with a post-install verification checklist |
-| "Save good articles as my own notes" | 12 candidates in 8 flavors; the winner shipped a batch mode the DIY plan never had |
+### "I want to save good articles as my own notes"
 
-**Every row above is a real run of this tool** — the full stories live in
+> The plan: write a little content-extraction scraper myself. Weekend project.
+
+**The find**: 12 candidates in 8 flavors. The one we connected even ships a
+**batch mode** (point it at an archive page, it clips the first N articles)
+— weekend project cancelled, one more feature than planned.
+
+### "I want to build a journal app"
+
+> The plan: design the diary / weekly-review / monthly-reflection rhythm
+> from scratch, prototype first.
+
+**The find**: help arrived in two layers —
+- **The substance**: `bm-life-journal`, a ready-made journaling workflow
+  (diary / weekly review / monthly reflection / life events / growth
+  tracking) — the methodology already polished;
+- **The looks**: a gamified phone-app prototype template from a 62,000+ star
+  design collection. Three phone frames, ready to skin.
+
+### "Turn my report into slides"
+
+> The expectation: a few templates at best.
+
+**The find**: 16 candidates in **15 flavors** — the problem flipped from
+"can I find one" to "which one":
+- Got Markdown? One picks layouts automatically and renders a real .pptx (201 stars);
+- Want AI-generated imagery? There's one (2,563 stars);
+- Report already in Word? There's a .docx-to-.pptx direct converter.
+
+### "Run an open-source LLM on my laptop"
+
+> The blocker: didn't even know whether to start with Ollama or LM Studio.
+
+**The find**: `local-llm-setup` — **it does the matchmaking**: four routes
+(Ollama / LM Studio / llama.cpp / vLLM) chosen by your hardware, step-by-step
+install, and a verification checklist at the end.
+
+---
+
+**Every find above is a real run of this tool** — full stories in
 [cases/](./cases/).
 
-> Help was never the missing piece. The missing piece is the line that
-> **finds it, vets it, and connects it to you.**
+## How to use: three steps
 
-world-aid is that line: **need → search & group → trace lineage → screen →
-install and use.**
+```bash
+# 1. Install (Claude Code shown; for other agents, add SKILL.md to the system prompt)
+git clone https://github.com/a28939876-max/world-aid
+cp -r world-aid ~/.claude/skills/world-aid
+```
 
-## What this does for you
+```
+2. Tell your agent:
+   "Is there an existing skill that saves web articles as notes?"
+```
 
-| Your situation | What it does |
+```
+3. It will: search across sources → group N copies into one family →
+   identify the source version → screen every file pre-install →
+   show you the recommendation and findings → install only when you say yes
+```
+
+Prefer running the scripts directly? Also fine:
+
+```bash
+python3 scripts/search_skills.py "web clipper article markdown" --limit 10
+python3 scripts/ensure_lineage.py            # fetch lineage tools from the sibling project
+python3 scripts/install_skill.py <github-tree-url> --dest ~/.claude/skills --dry-run
+```
+
+## The three gates it keeps for you
+
+| Without it | With it |
 |---|---|
-| A need, and no desire to reinvent the wheel | Searches across sources and **groups N copies of the same skill into one family** — the decision shrinks from "pick one of eight" to "yes or no" |
-| Candidates that are hard to tell apart | Identifies the source and the repost-mirrors (reposts often strip the license and publisher info) — the right version goes to you |
-| Worried about stowaway instructions | Pre-install screening of **every file** (not just SKILL.md); suspicious hits refuse to install by default until human-reviewed |
-
-Also serves **skill authors** (when a repost strips your name, lineage puts
-it back) and **collection maintainers** (batch-screen copies and injections).
+| Eight search results turn out to be eight reposts of the same thing | **Family grouping**: 8 copies count as 1 candidate — the decision shrinks from "pick one of eight" to "yes or no" |
+| You installed a repost with the license and publisher info stripped | **Source identification**: linked to [skill-lineage](https://github.com/a28939876-max/skill-lineage), installs the official/original version |
+| A third-party skill carries a "silently report back" instruction | **Pre-install screening**: full text of every file (not just SKILL.md); hits refuse to install until human-reviewed |
 
 ### How we use it ourselves
 
 This pipeline started as our own routine, not an open-source project: for
 every new need, **let the world help first, build only if it can't.** The
-four rows in the opening table came from exactly such runs: we thought we'd
-write a scraper — someone had built it with a batch mode; the journal app
-came with both the workflow and the looks; slides had more flavors than we
-could pick from; the local-LLM guide even did the hardware matchmaking.
-**Plainly put: the more we search first, the less we build from scratch.**
+four finds above came from exactly such runs. **Plainly put: the more we
+search first, the less we build from scratch.**
 
 ## What's inside
 
-Three zero-dependency Python scripts plus a loadable agent workflow:
+Three zero-dependency Python scripts plus a loadable agent workflow
+(SKILL.md). Pure stdlib, anonymous out of the box; `SKILLSMP_API_KEY` /
+`GITHUB_TOKEN` optionally lift rate limits.
 
 ```mermaid
 flowchart LR
     A["need keywords<br/>(2-3 sets, broad to narrow)"] --> B["search_skills.py<br/>cross-source search + family grouping"]
     B --> C{"family shape?"}
-    C -- "copy family" --> D["lineage tracing<br/>drop mirrors, pick origin"]
+    C -- "copy family" --> D["lineage tracing<br/>drop mirrors, pick source"]
     C -- "distinct set" --> E["shortlist 2-3 by fit"]
     D --> F["install_skill.py --dry-run<br/>full-file screening"]
     E --> F
@@ -71,39 +123,26 @@ flowchart LR
 | Tool | What it does |
 |---|---|
 | [`scripts/search_skills.py`](./scripts/search_skills.py) | SkillsMP + GitHub search with description-similarity family grouping |
-| [`scripts/ensure_lineage.py`](./scripts/ensure_lineage.py) | **Linked to the sibling project [skill-lineage](https://github.com/a28939876-max/skill-lineage)**: fetches its lineage tools on demand instead of maintaining a copy |
-| [`scripts/install_skill.py`](./scripts/install_skill.py) | Pre-install full-text screening (every file; suspicious keywords + known injector fingerprints; refuses by default on hits) → install, with `--dry-run` |
-| [`SKILL.md`](./SKILL.md) | The workflow itself — drop into Claude Code (or any agent) and say "is there an existing skill for X?" |
+| [`scripts/ensure_lineage.py`](./scripts/ensure_lineage.py) | Linked to the sibling project [skill-lineage](https://github.com/a28939876-max/skill-lineage): fetches its lineage tools on demand |
+| [`scripts/install_skill.py`](./scripts/install_skill.py) | Pre-install full-text screening (suspicious keywords + known injector fingerprints; refuses by default on hits) → install, with `--dry-run` |
+| [`SKILL.md`](./SKILL.md) | The workflow itself — drop into an agent to get the full find-vet-install chain |
 
-Pure stdlib, anonymous out of the box; `SKILLSMP_API_KEY` / `GITHUB_TOKEN`
-optionally lift rate limits.
+## Real cases
 
-## Quick start
+> Four everyday write-ups plus three advanced ones, all picked from many
+> real finds — more to come.
 
-```bash
-git clone https://github.com/a28939876-max/world-aid
-cp -r world-aid ~/.claude/skills/world-aid   # Claude Code
-
-# Or run the scripts directly:
-python3 scripts/search_skills.py "web clipper article markdown" --limit 10
-python3 scripts/ensure_lineage.py
-python3 scripts/install_skill.py <github-tree-url> --dest ~/.claude/skills --dry-run
-```
-
-## Real cases: the need, and what the world had ready
-
-> Four typical write-ups picked from many real finds — not the full list.
-
-| The need, verbatim | The find |
+| The need, verbatim | The story |
 |---|---|
-| "Save good articles as my own notes" | [The Scraper I Never Wrote](./cases/01-the-scraper-i-never-wrote.md) — 12 candidates, 8 flavors, winner shipped a bonus batch mode |
-| "I want to build a journal app" | [The Journal App](./cases/02-the-journal-app.md) — help arrived in two layers: the journaling workflow and the app-prototype looks |
-| "Turn my report into slides" | [Report to Slides](./cases/03-report-to-slides.md) — 16 candidates in 15 flavors, plus a live demo of "a screening hit ≠ a problem" |
-| "Run an open-source LLM on my laptop" | [An LLM on My Laptop](./cases/04-llm-on-my-laptop.md) — four routes matched to your hardware, verification checklist included |
+| "Save good articles as my own notes" | [The Scraper I Never Wrote](./cases/01-the-scraper-i-never-wrote.md) |
+| "I want to build a journal app" | [The Journal App](./cases/02-the-journal-app.md) |
+| "Turn my report into slides" | [Report to Slides](./cases/03-report-to-slides.md) (includes a live "screening hit ≠ problem" review) |
+| "Run an open-source LLM on my laptop" | [An LLM on My Laptop](./cases/04-llm-on-my-laptop.md) |
 
-### Advanced cases (developer-facing)
-
-The giants are placing help into this ecosystem too: [Even This Niche](./cases/advanced/even-this-niche.md) (even "a skill that reviews skills" has two schools), [Microsoft Made It a Skill](./cases/advanced/microsoft-made-it-a-skill.md) (an official 17-file engineering-grade skill), [NVIDIA Shows Up](./cases/advanced/nvidia-shows-up.md) (an enterprise-grade scanner so good we adopted it instead of building our own).
+**Advanced (developer-facing)**: the giants are placing help into this
+ecosystem too — [Even This Niche](./cases/advanced/even-this-niche.md),
+[Microsoft Made It a Skill](./cases/advanced/microsoft-made-it-a-skill.md),
+[NVIDIA Shows Up](./cases/advanced/nvidia-shows-up.md).
 
 ## Pairs well with
 
@@ -115,9 +154,9 @@ The giants are placing help into this ecosystem too: [Even This Niche](./cases/a
 
 **Q: Marketplaces and installers already search and install. What's new here?**
 A: Marketplaces answer "what exists", not "which one to install". Family
-grouping (eight copies count as one), lineage (who's the origin, whose
-credit got stripped), and full-file pre-install screening are the three
-steps no marketplace or one-click installer does.
+grouping (eight copies count as one), source identification (reposts often
+strip license and publisher info), and full-file pre-install screening are
+the three steps no marketplace or one-click installer does.
 
 **Q: Does the screening guarantee safety?**
 A: No, and we won't pretend it does. It's a keyword-heuristic plus
@@ -137,7 +176,8 @@ pair with a dedicated scanner for serious vetting.
 ## Contributing
 
 PRs welcome — especially new injector fingerprints for `install_skill.py`,
-and new real-world cases with data and a verdict.
+and new real-world find-stories with the verbatim need, the data, and the
+verdict.
 
 ## License
 
