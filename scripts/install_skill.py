@@ -25,7 +25,7 @@ import re
 import urllib.error
 import urllib.request
 
-UA = "skill-recruiter/0.1"
+UA = "world-aid/0.1"
 
 SUSPICIOUS_PATTERNS = [
     "curl ", "wget ", "rm -rf", "sudo ", "chmod ", "eval(", "base64 -d",

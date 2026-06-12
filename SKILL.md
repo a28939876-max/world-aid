@@ -1,11 +1,14 @@
 ---
-name: skill-recruiter
-description: 给需求招一个外援 skill 的端到端管线（找+装连成一条线）——从一个需求关键词出发：跨源搜索并按描述相似度归族（同一 skill 的拷贝群不再淹没选项）→ 对 top 族修谱（找原版/衍生、镜像淘汰、识别血统剥离）→ 装前全文安检（可疑关键词+已知注入指纹，命中默认拒装）→ 装进本地 skills 目录并冒烟。Use when the user has a need and wants to find, vet, and install an existing agent skill instead of building one — triggers: "有没有现成的 skill 能做 xx"、"帮我找个外援/招个 skill"、"find and install a skill for X"、"recruit a skill"。不适用于：已点名要装的具体 skill（直接装）、要从零写新 skill（走 skill-creator 类工具）、对单个已知仓库修谱（直接用 lineage 脚本）。
+name: world-aid
+description: 世界援助——把全世界已有的能力接到用户的需求上（找+装连成一条线）。从一个需求关键词出发：跨源搜索并按描述相似度归族（同一 skill 的拷贝群不再淹没选项）→ 对 top 族修谱（找原版/衍生、镜像淘汰、识别血统剥离）→ 装前全文安检（可疑关键词+已知注入指纹，命中默认拒装）→ 装进本地 skills 目录并冒烟。Use when the user has a need and wants to find, vet, and install an existing agent skill instead of building one — triggers: "有没有现成的 skill 能做 xx"、"世界援助"、"让世界帮我"、"find and install a skill for X"、"world aid"。不适用于：已点名要装的具体 skill（直接装）、要从零写新 skill（走 skill-creator 类工具）、对单个已知仓库修谱（直接用 lineage 脚本）。
 ---
 
-# Skill Recruiter · 招援
+# World Aid · 世界援助
 
-用户有一个需求，世界上可能已经有人把它做成了 skill——本管线负责把它**找出来、验明正身、装到位**。
+> 得道多助，失道寡助。
+> 你想做的事若对世界有利，世界早已把帮助准备好了——散落在各地的 skill 就是证据。
+> 本管线负责把世界的帮助**找出来、验明正身、接到你手上**。
+
 零依赖纯 stdlib，匿名可用（`SKILLSMP_API_KEY` / `GITHUB_TOKEN` 可选放宽限流）。
 
 ## 流程总览

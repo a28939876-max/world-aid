@@ -28,7 +28,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-UA = "skill-recruiter/0.1"
+UA = "world-aid/0.1"
 
 
 def http_get_json(url: str, headers: dict | None = None, timeout: int = 30):
