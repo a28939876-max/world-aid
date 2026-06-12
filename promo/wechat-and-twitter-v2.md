@@ -1,35 +1,35 @@
-<!-- 内部说明（发布时不要带上）：口语版推广文案，用"找油管字幕差点装了个走 Tor 的工具"这个真实例子，已过两轮 codex 反 slop 审稿。 -->
+<!-- 内部说明（发布时不要带上）：口语版推广文案，重心放在"找"这套逻辑——先把一整片翻全、归族去重、看清全貌再挑。用"找油管字幕"这个真实例子，已过 codex / humanizer-zh 反 slop 审稿。 -->
 
-# world-aid 推广文案 v2（口语版）
+# world-aid 推广文案 v2（口语版 · 重心"找"）
 
 ## 一、微信公众号推文
 
 ### 标题候选
-- A：我就想下个油管字幕，差点装了个土耳其人的 Tor 工具
-- B：装之前多看一眼，这次救了我一台机器
-- C：让 AI 帮我找工具，它反手拦了我一下
+- A：我就想下个油管字幕，世界给了我十几个答案
+- B：装工具之前，先把世界翻一遍
+- C：差点盯着"功能最全"那个就装了
 
 ### 正文
 
-前几天我想把一个 YouTube 视频转成文字。视频有点长，自己边听边记太累，就想找个现成的工具把字幕拉下来。
+前几天我想把一个 YouTube 视频转成文字。视频有点长，自己边听边记太累，就想找个现成的工具。
 
-搁以前我会自己搜半天，找个看着靠谱的、别人写好的小工具装上完事。这回我让 world-aid 去找。这是我自己攒的一个小东西，你用大白话告诉它想干嘛，它满世界帮你找现成的，找着了先帮你验一遍再问你装不装。
+搁以前我会自己去 GitHub 搜，翻几页，挑个 star 高的装上完事。这回我让 world-aid 去找。
 
-它一下翻出来十几个能下字幕的。我扫了眼挑了个看着顺眼的，正要装，它把我拦下了，让我先看看这个。
+它一下翻出来十几个能下字幕的，还先帮我归了个类。十几个里有四个是同一个东西被转来转去，它算作一份。剩下九个才是真不一样的，我这才看出来下字幕原来有这么多路子。有只下纯文字的，有顺手把视频画面也截出来的，有下完自动翻译的，有专门走 Tor 防封的，还有调别的现成服务、几行就搞定的。
 
-我点开就乐了。这玩意儿是个土耳其人写的，注释全是土耳其语。下个字幕而已，它非要我先装个 Tor 把网络绕一圈，中间还得拿管理员权限改系统、起服务。最逗的是它存文件的地方写死了，写的是某个云端机器人的目录，跟我这台电脑根本不挨着。
+这一片摊开看，最扎眼的是那个走 Tor 的。下字幕还能防 IP 封锁，听着功能最全，我差点就挑它了。
 
-它本身不坏。我让本机的 codex 把代码从头到尾读了一遍，它说没发现偷文件、碰密码这些事。不过它提了个醒，这脚本会自己拿管理员权限去起一个 Tor 服务，等于没问我一声就动了系统设置，让我装之前最好看一眼。这东西其实是给跑在云服务器上的机器人用的，绕 Tor 是为了躲开 YouTube 封 IP。
+点开才发现不是那么回事。它是个土耳其人写的，注释全是土耳其语。下个字幕而已，它要我先装 Tor 把网络绕一圈，还得拿管理员权限改系统。它存文件的路径写死了，写的是某个云端机器人的目录，跟我这台电脑根本不挨着。这东西是给跑在服务器上的机器人用的，不是给我电脑的。
 
-可它跟我要的不是一回事。我就想在自己电脑上下个字幕存下来，它却要我装 Tor、动系统、还往一个我这儿根本不存在的目录里写。真要是没看就装，照着说明一路点同意，我这台机器就被一个我没怎么细看的脚本改了。
+要不是把这些都找出来摆一块看，我可能就盯着那个"功能最全"的装了。看过一遍才发现，它解决的是别人的问题。我只是想下个字幕，低星那几个反而更顺手。
 
-world-aid 帮我把住的就是这一下。它不替我判断谁好谁坏，就是在我点"装"之前，把这东西到底是个啥摊开给我看，我再决定装不装。
+world-aid 干的差不多就是这事。你说个需求，它先到处找一圈，把重复的并掉，再把能用的几种摆出来。挑哪个是你的事，但至少你是看过一圈再挑的，不是搜到第一个就装。
 
 ### 它平时怎么帮我
 
-这种事经历多了，我慢慢养成个习惯。有个需求，先让它去问问世界上有没有人做好了，没有我再自己动手。
+这种事经历多了，我慢慢养成个习惯。有需求先让它去问问世界上有没有人做好了，没有我再自己写。
 
-它帮我省心的地方，主要在搜出来一堆重样的时候。同一个东西被转了八遍，它会归个类、算一份给我，省得我一个个点开发现都一样。它还会提醒我哪个是原版，哪个是被人转走偷偷改过的。真到要装了，它再过一遍安全，本机装了 codex 的话就让它把代码读一遍。哪步不放心，它就停下来等我点头。
+我主要是省在找这一步。搜出来一堆重样的，它归个类算一份，省得我挨个点开发现都一样。它还会告诉我哪个是原版，哪个是被人转走改过的。真到要装了，它再帮我过一遍安全，本机有 codex 的话就让它把代码读一遍。哪步不放心，它就停下来等我点头。
 
 ### 收尾
 
@@ -46,18 +46,18 @@ world-aid 开源了，可以直接拿去用，懂代码的话也欢迎来提改�
 
 ### 中文帖（配 demo 图）
 
-我想把个油管视频转成文字，让 world-aid 帮我找个下字幕的工具。它翻出来十几个，我挑了一个正要装，它拦下来让我先看看。
+我想把个油管视频转成文字，让 world-aid 帮我找下字幕的工具。它翻出来十几个，先帮我归类去重，剩九个真不一样的做法一字排开：有只下文字的，有顺手截画面的，有自动翻译的，有走 Tor 防封的。
 
-一看是个土耳其人写的，下个字幕居然要我先装 Tor、还得拿管理员权限改系统。我让本机 codex 读了遍代码，它说不偷东西，但会自己动系统去起 Tor 服务，其实是给云服务器上的机器人用的，跟我想要的本地下字幕根本两码事。
+最扎眼那个走 Tor 的，听着功能最全，我差点选它。点开才发现是土耳其人给服务器机器人写的，下字幕要装 Tor、动系统，跟我想要的本地工具不是一回事。
 
-要不是拦这一下，我照着说明一路点同意就装上了。world-aid 干的就是这个，装之前让你看清它到底是个啥。
+要不是把这些找出来摆一块看，我就盯着那个"功能最全"的装了。world-aid 干的就是这个：先替你多找一圈，再让你挑。
 🔗 github.com/a28939876-max/world-aid
 
 ### 英文帖（投 HN / 技术圈）
 
-I just wanted a transcript from one YouTube video. I asked world-aid to find a skill for it, picked one of the dozen it turned up, and as I hit install it stopped me.
+I wanted to turn one YouTube video into text. Asked world-aid to find a skill for it. It pulled up a dozen, grouped the duplicates, and laid out the nine that were actually different: plain text, one that also grabs frames, one that auto-translates, one that routes through Tor.
 
-Turns out it was written in Turkish and wanted me to install Tor and run sudo just to grab subtitles. I had the local codex read the code. Not malicious, but it quietly starts a Tor service with sudo, and it's really built for a bot running on a server, not my laptop.
+The Tor one looked the most capable, so I almost picked it. Turned out it was written in Turkish for a bot running on a server, wanted me to install Tor and touch system settings, nothing like the local tool I had in mind.
 
-Without that pause I'd have sudo'd my way through the README. world-aid just shows you what a skill actually is before you install it.
+If I hadn't seen all of them side by side, I'd have installed the flashiest one. That's what world-aid does: it does the searching first, so you choose with more context.
 🔗 github.com/a28939876-max/world-aid
