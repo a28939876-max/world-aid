@@ -10,18 +10,18 @@
 
 ---
 
-## The world may already be ready to help you
+## You state a need, the world answers
 
-> Want to clip web articles? Someone already built it — including a batch
-> mode you hadn't even planned.
-> Want a "skill that reviews skills"? That niche has two whole schools of
-> thought.
-> Deploying Azure models? Microsoft packaged the entire workflow as a skill.
-> Worried about unsafe third-party skills? NVIDIA open-sourced an
-> enterprise-grade scanner.
->
-> (All real finds — see [cases/](./cases/).)
->
+| You say | What the world had ready (real pipeline runs) |
+|---|---|
+| "I want to build a journal app" | `bm-life-journal`: a ready-made journaling workflow (diary / weekly review / monthly reflection / growth tracking) — plus a gamified phone-app prototype template from a 62,000+ star design collection for the looks |
+| "Turn my report into slides" | 16 candidates in 15 flavors: Markdown-to-real-.pptx with auto layouts (201 stars), AI-illustrated decks (2,563 stars), Word-to-PPT direct — pick by the format you have |
+| "Run an open-source LLM on my laptop" | `local-llm-setup`: four routes (Ollama / LM Studio / llama.cpp / vLLM) chosen by your hardware, with a post-install verification checklist |
+| "Save good articles as my own notes" | 12 candidates in 8 flavors; the winner shipped a batch mode the DIY plan never had |
+
+**Every row above is a real run of this tool** — the full stories live in
+[cases/](./cases/).
+
 > Help was never the missing piece. The missing piece is the line that
 > **finds it, vets it, and connects it to you.**
 
@@ -43,12 +43,11 @@ it back) and **collection maintainers** (batch-screen copies and injections).
 
 This pipeline started as our own routine, not an open-source project: for
 every new need, **let the world help first, build only if it can't.** The
-four [cases/](./cases/) are typical picks from many real finds: we thought
-we'd write a scraper — someone had built it with a batch mode; we thought a
-niche was too obscure — it had two schools of thought; we thought we'd grind
-through docs — Microsoft had packaged the workflow; we thought we'd maintain
-our own scanner — NVIDIA showed up. **Plainly put: the more we search first,
-the less we build from scratch.**
+four rows in the opening table came from exactly such runs: we thought we'd
+write a scraper — someone had built it with a batch mode; the journal app
+came with both the workflow and the looks; slides had more flavors than we
+could pick from; the local-LLM guide even did the hardware matchmaking.
+**Plainly put: the more we search first, the less we build from scratch.**
 
 ## What's inside
 
@@ -95,12 +94,16 @@ python3 scripts/install_skill.py <github-tree-url> --dest ~/.claude/skills --dry
 
 > Four typical write-ups picked from many real finds — not the full list.
 
-| The need | What the world had ready |
+| The need, verbatim | The find |
 |---|---|
-| [The Scraper I Never Wrote](./cases/01-the-scraper-i-never-wrote.md): clip web articles to local Markdown | 12 candidates in 8 flavors; the one we connected even had a batch mode we hadn't planned |
-| [Even This Niche](./cases/02-even-this-niche.md): a tool that reviews installed skills | 10+ candidates in two complementary schools (static rule audit vs. runtime transcript audit) — we took mechanisms from both |
-| [Microsoft Made It a Skill](./cases/03-microsoft-made-it-a-skill.md): deploy Azure OpenAI models | Microsoft's official 17-file skill (presets / full customization / capacity discovery); the pipeline also picked the official source out of 8 repost copies |
-| [NVIDIA Shows Up](./cases/04-nvidia-shows-up.md): security-scan skills before installing | NVIDIA's official enterprise-grade scanner (64 patterns × 16 categories) — good enough that we adopted it instead of building our own |
+| "Save good articles as my own notes" | [The Scraper I Never Wrote](./cases/01-the-scraper-i-never-wrote.md) — 12 candidates, 8 flavors, winner shipped a bonus batch mode |
+| "I want to build a journal app" | [The Journal App](./cases/02-the-journal-app.md) — help arrived in two layers: the journaling workflow and the app-prototype looks |
+| "Turn my report into slides" | [Report to Slides](./cases/03-report-to-slides.md) — 16 candidates in 15 flavors, plus a live demo of "a screening hit ≠ a problem" |
+| "Run an open-source LLM on my laptop" | [An LLM on My Laptop](./cases/04-llm-on-my-laptop.md) — four routes matched to your hardware, verification checklist included |
+
+### Advanced cases (developer-facing)
+
+The giants are placing help into this ecosystem too: [Even This Niche](./cases/advanced/even-this-niche.md) (even "a skill that reviews skills" has two schools), [Microsoft Made It a Skill](./cases/advanced/microsoft-made-it-a-skill.md) (an official 17-file engineering-grade skill), [NVIDIA Shows Up](./cases/advanced/nvidia-shows-up.md) (an enterprise-grade scanner so good we adopted it instead of building our own).
 
 ## Pairs well with
 
