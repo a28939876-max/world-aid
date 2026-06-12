@@ -6,9 +6,28 @@
 
 [中文文档 →](./README.zh-CN.md)
 
-**A just cause attracts abundant help** *(得道多助 — Mencius)*. If what you
-want to do is good for the world, the world has already prepared help — this
-tool **finds it, vets it, and connects it to you.**
+**world-aid is an agent skill that turns a natural-language need into a vetted,
+installable AI skill recommendation.**
+
+You say what you want. It searches existing skills, groups the reposts,
+identifies the source version, screens every file for risks, and installs only
+after you confirm.
+
+## What it does
+
+1. **Search** agent skills across SkillsMP + GitHub
+2. **Group** reposts and forks into families — 8 copies of one skill collapse to 1 candidate
+3. **Identify the source** version via [skill-lineage](https://github.com/a28939876-max/skill-lineage) (reposts often strip the license)
+4. **Screen** every file before install — a keyword check, plus an optional local **Codex CLI deep review**
+5. **Install** only after you confirm
+
+<p align="center">
+  <img src="./assets/demo.png" alt="world-aid: a need becomes 8 results → 1 family → source identified → keyword-clean but Codex deep review flags a shell injection risk" width="780"/>
+</p>
+
+> *得道多助，失道寡助* — a just cause attracts abundant help. If what you want
+> to do is good for the world, the help has likely already been built; this tool
+> connects it to you.
 
 ---
 
@@ -91,6 +110,7 @@ python3 scripts/install_skill.py <github-tree-url> --dest ~/.claude/skills --dry
 | Eight search results turn out to be eight reposts of the same thing | **Family grouping**: 8 copies count as 1 candidate — the decision shrinks from "pick one of eight" to "yes or no" |
 | You installed a repost with the license and publisher info stripped | **Source identification**: linked to [skill-lineage](https://github.com/a28939876-max/skill-lineage), installs the official/original version |
 | A third-party skill carries a "silently report back" instruction | **Pre-install screening**: full text of every file (not just SKILL.md); hits refuse to install until human-reviewed |
+| Keyword screening misses a subtle code-injection in a shell script | **Optional Codex CLI deep review** (`--deep-review`): a local LLM reads the actual code; UNSAFE blocks the install |
 
 ### How we use it ourselves
 
@@ -124,7 +144,8 @@ flowchart LR
 |---|---|
 | [`scripts/search_skills.py`](./scripts/search_skills.py) | SkillsMP + GitHub search with description-similarity family grouping |
 | [`scripts/ensure_lineage.py`](./scripts/ensure_lineage.py) | Linked to the sibling project [skill-lineage](https://github.com/a28939876-max/skill-lineage): fetches its lineage tools on demand |
-| [`scripts/install_skill.py`](./scripts/install_skill.py) | Pre-install full-text screening (suspicious keywords + known injector fingerprints; refuses by default on hits) → install, with `--dry-run` |
+| [`scripts/install_skill.py`](./scripts/install_skill.py) | Pre-install full-text screening (suspicious keywords + known injector fingerprints; refuses by default on hits) → install, with `--dry-run` and `--deep-review` |
+| [`scripts/codex_review.py`](./scripts/codex_review.py) | Optional LLM semantic audit via a local **Codex CLI** — reads every file in a read-only sandbox, returns SAFE / REVIEW / UNSAFE with findings; degrades gracefully when no Codex is present |
 | [`SKILL.md`](./SKILL.md) | The workflow itself — drop into an agent to get the full find-vet-install chain |
 
 ## Real cases
@@ -159,10 +180,20 @@ strip license and publisher info), and full-file pre-install screening are
 the three steps no marketplace or one-click installer does.
 
 **Q: Does the screening guarantee safety?**
-A: No, and we won't pretend it does. It's a keyword-heuristic plus
-known-fingerprint **eyeball check**: security-themed skills trip it, novel
-attacks can slip past. Hits require human review and an explicit `--force`;
-pair with a dedicated scanner for serious vetting.
+A: No, and we won't pretend it does. The default pass is a keyword-heuristic
+plus known-fingerprint **eyeball check**: security-themed skills trip it, novel
+attacks can slip past. Hits require human review and an explicit `--force`.
+
+**Q: What does `--deep-review` add?**
+A: When you have a local **Codex CLI**, `--deep-review` stages the candidate in
+a read-only sandbox and has an LLM actually read the code — catching things
+keyword matching can't. In our own tests it passed a journaling skill as SAFE,
+but flagged a Microsoft sample's shell helper as REVIEW: an unvalidated arg
+spliced into `python3 -c`, a local code-injection risk the keyword pass missed.
+The reviewed skill is treated as untrusted data (the prompt forbids executing
+anything inside it), and UNSAFE blocks the install. Still an LLM judgment, not a
+guarantee — pair with a dedicated scanner for high-stakes installs. No Codex
+present? It degrades silently to keyword screening.
 
 ## Honesty notes
 

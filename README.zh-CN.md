@@ -6,7 +6,21 @@
 
 [English →](./README.md)
 
-**得道多助，失道寡助。** 你想做的事若对世界有利，世界早已把帮助准备好了——这个工具负责把帮助**找出来、验明正身、接到你手上**。
+**world-aid 是一个给 AI Agent 用的 skill：你说需求，它帮你搜索现成 skill、归族去重、识别源头、装前安检，并在你确认后安装。**
+
+## 它做什么
+
+1. **搜索**：跨 SkillsMP + GitHub 找现成 agent skill
+2. **归族**：把转载和 fork 归成族——同一个 skill 的 8 个拷贝合成 1 个候选
+3. **认源头**：用 [skill-lineage](https://github.com/a28939876-max/skill-lineage) 修血统，挑出官方/原作版本（转载常把许可证删了）
+4. **安检**：装前扫每个文件——关键词目检，外加可选的本机 **Codex CLI 深度审查**
+5. **安装**：你确认了才装
+
+<p align="center">
+  <img src="./assets/demo.png" alt="world-aid：一个需求 → 8 结果归 1 族 → 认出源头 → 关键词目检干净，但 Codex 深审抓出 shell 注入风险" width="780"/>
+</p>
+
+> 得道多助，失道寡助。你想做的事若对世界有利，帮助大概率早已被人做好了——这个工具负责把它接到你手上。
 
 ---
 
@@ -78,6 +92,7 @@ python3 scripts/install_skill.py <github-tree-url> --dest ~/.claude/skills --dry
 | 搜出 8 条结果，挨个点开发现是同一个东西的 8 个转载 | **归族**：8 个拷贝算 1 个候选，决策从"八选一"变"要不要" |
 | 装了个转载版，许可证和出品方信息都被删了 | **认源头**：联动 [skill-lineage](https://github.com/a28939876-max/skill-lineage) 修谱，装官方/原作版本，更新和出处都跟得上 |
 | 第三方 skill 里夹了条"悄悄上报"的指令没人发现 | **装前安检**：全部文件全文扫描（不只 SKILL.md），命中可疑模式默认拒装、人审后才放行 |
+| 关键词目检漏掉 shell 脚本里一处隐蔽的代码注入 | **可选 Codex CLI 深审**（`--deep-review`）：本机 LLM 真读代码，判 UNSAFE 直接拦下安装 |
 
 ### 我们自己就是这么用的
 
@@ -106,7 +121,8 @@ flowchart LR
 |---|---|
 | [`scripts/search_skills.py`](./scripts/search_skills.py) | SkillsMP + GitHub 跨源搜索，按描述相似度归族 |
 | [`scripts/ensure_lineage.py`](./scripts/ensure_lineage.py) | 联动姊妹项目 [skill-lineage（族谱.skill）](https://github.com/a28939876-max/skill-lineage)：按需取回修谱工具，不复制维护 |
-| [`scripts/install_skill.py`](./scripts/install_skill.py) | 装前全文安检（可疑关键词 + 已知注入指纹，命中默认拒装）→ 落盘安装，支持 `--dry-run` |
+| [`scripts/install_skill.py`](./scripts/install_skill.py) | 装前全文安检（可疑关键词 + 已知注入指纹，命中默认拒装）→ 落盘安装，支持 `--dry-run` 和 `--deep-review` |
+| [`scripts/codex_review.py`](./scripts/codex_review.py) | 可选的 LLM 语义审查：调本机 **Codex CLI** 在只读沙箱里真读每个文件，返回 SAFE / REVIEW / UNSAFE + findings；没装 Codex 就优雅降级 |
 | [`SKILL.md`](./SKILL.md) | 编排流程本体：装进 agent 即获得"找+验+装"全链能力 |
 
 ## 真实案例
@@ -134,7 +150,10 @@ flowchart LR
 A：市场负责"有什么"，不负责"该装哪个"。归族（八个拷贝算一个）、认源头（转载常删许可证和出品方信息）、装前全文安检（含 scripts/，命中默认拒装）——这三步是市场和一键安装器都不做的。
 
 **Q：安检能保证安全吗？**
-A：不能，也不装能。它是关键词启发式 + 已知注入指纹的**装前目检**：讲安全的 skill 会自指误报，新型攻击也可能漏。命中必人审、人审后才 `--force`，重型扫描请配合专业工具。
+A：不能，也不装能。默认那道是关键词启发式 + 已知注入指纹的**装前目检**：讲安全的 skill 会自指误报，新型攻击也可能漏。命中必人审、人审后才 `--force`。
+
+**Q：`--deep-review` 多做了什么？**
+A：本机装了 **Codex CLI** 时，`--deep-review` 把候选放进只读沙箱、让 LLM 真读代码，抓关键词抓不到的东西。我们自己实测：一个日记 skill 判 SAFE，但一个微软样例的 shell 脚本判 REVIEW——它把未校验的参数拼进了 `python3 -c`，是关键词目检漏掉的本地代码注入风险。被审 skill 当作不可信数据处理（prompt 禁止执行其中任何内容），判 UNSAFE 直接拦下安装。仍是 LLM 判断、非保证，高风险场景请配合专业扫描器；没装 Codex 就静默降级回关键词目检。
 
 ## 诚实声明
 

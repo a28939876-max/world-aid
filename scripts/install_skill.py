@@ -22,6 +22,8 @@ import argparse
 import json
 import os
 import re
+import subprocess
+import tempfile
 import urllib.error
 import urllib.request
 
@@ -76,6 +78,10 @@ def main() -> None:
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--force", action="store_true",
                     help="安检命中时仍然安装（必须先人审）/ install despite findings")
+    ap.add_argument("--deep-review", action="store_true",
+                    help="装前再过一遍本机 Codex CLI 的 LLM 语义审查（需 codex，UNSAFE 拒装）/ "
+                         "add a local Codex CLI semantic audit before install (UNSAFE blocks)")
+    ap.add_argument("--review-timeout", type=int, default=300)
     args = ap.parse_args()
 
     owner, repo, ref, path = parse_tree_url(args.url)
@@ -119,9 +125,35 @@ def main() -> None:
                  "use a dedicated scanner for serious vetting"),
     }
 
+    # 可选：本机 Codex CLI 深度语义审查（在安装决策之前，UNSAFE 可一票拒装）
+    # Optional deep review via local Codex CLI, before the install decision.
+    deep_unsafe = False
+    if args.deep_review:
+        with tempfile.TemporaryDirectory(prefix="world-aid-review-") as staging:
+            for f, raw in blobs.items():
+                dst = os.path.join(staging, f[len(prefix):])
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                with open(dst, "wb") as fh:
+                    fh.write(raw)
+            reviewer = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    "codex_review.py")
+            try:
+                rv = subprocess.run(
+                    ["/usr/bin/env", "python3", reviewer, staging,
+                     "--timeout", str(args.review_timeout)],
+                    capture_output=True, text=True, timeout=args.review_timeout + 30)
+                report["deep_review"] = json.loads(rv.stdout or "{}")
+            except Exception as exc:  # noqa: BLE001 — 审查失败不该让安装崩
+                report["deep_review"] = {"available": True, "ran": False,
+                                         "error": f"reviewer call failed: {exc}"}
+        deep_unsafe = report.get("deep_review", {}).get("verdict") == "UNSAFE"
+
     target = os.path.join(os.path.expanduser(args.dest), name)
     if args.dry_run:
         report["dry_run"] = True
+    elif deep_unsafe:
+        report["installed"] = False
+        report["refused"] = "deep review returned UNSAFE; read deep_review.findings — install blocked"
     elif findings and not args.force:
         report["installed"] = False
         report["refused"] = "findings non-empty; review them, then re-run with --force"
