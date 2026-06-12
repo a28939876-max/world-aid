@@ -1,151 +1,183 @@
-# world-aid · 世界援助
+# world-aid
 
 <p align="center">
-  <img src="./assets/cover.png" alt="world-aid — 得道多助" width="520"/>
+  <img src="./assets/cover.png" alt="world-aid — a just cause attracts the world's help" width="520"/>
 </p>
 
-[English](./README.en.md)
+[中文文档 →](./README.zh-CN.md)
 
-**得道多助，失道寡助。** 你想做的事若对世界有利，世界早已把帮助准备好了——这个工具负责把帮助**找出来、验明正身、接到你手上**。
-
----
-
-## 你说一句需求，世界接一句帮助
-
-### 「看到好文章，想存成自己的笔记」
-
-> 原计划：自己写个抓正文的小爬虫，周末工程。
-
-**结果**：12 个候选、8 种流派。接通的那个连"给一个归档页、自动抓前 N 篇"的**批量模式**都做好了——周末工程取消，比原计划还多一个功能。
-
-### 「我想做一个手帐式 app」
-
-> 原计划：从零设计"日记 + 周回顾 + 月反思"该怎么排，先画原型再说。
-
-**结果**：里子面子各找到一层——
-- **里子**：`bm-life-journal`，现成的手帐工作流（日记/周回顾/月反思/人生事件/成长追踪），方法论都替你打磨好了；
-- **面子**：62000+⭐ 设计合集里的游戏化手机 app 原型模板，三个手机框，外观直接套。
-
-### 「把我的报告做成一份 PPT」
-
-> 预期：顶多找到几个模板，凑合用。
-
-**结果**：16 个候选、**15 个流派**，问题从"找不找得到"变成"挑哪个"——
-- 手里是 Markdown？有自动挑版式、输出真 .pptx 的（201⭐）；
-- 想要 AI 配图？有（2563⭐）；
-- 报告本来就是 Word？有 .docx 直转 .pptx 的，字面意义的"报告变 PPT"。
-
-### 「想在自己电脑上装个开源大模型」
-
-> 卡点：连该从 Ollama 还是 LM Studio 下手都不知道。
-
-**结果**：`local-llm-setup`——**选型它替你做**：Ollama / LM Studio / llama.cpp / vLLM 四条路线按你的硬件（CPU/GPU/显存）挑，一步步装，装完还有验证清单告诉你通没通。
+**A just cause attracts abundant help** *(得道多助 — Mencius)*. If what you
+want to do is good for the world, the world has already prepared help — this
+tool **finds it, vets it, and connects it to you.**
 
 ---
 
-**以上每一行都是用本工具真实跑出来的**，完整找寻过程在 [cases/](./cases/)。
+## You state a need, the world answers
 
-## 怎么用：三步
+### "I want to save good articles as my own notes"
+
+> The plan: write a little content-extraction scraper myself. Weekend project.
+
+**The find**: 12 candidates in 8 flavors. The one we connected even ships a
+**batch mode** (point it at an archive page, it clips the first N articles)
+— weekend project cancelled, one more feature than planned.
+
+### "I want to build a journal app"
+
+> The plan: design the diary / weekly-review / monthly-reflection rhythm
+> from scratch, prototype first.
+
+**The find**: help arrived in two layers —
+- **The substance**: `bm-life-journal`, a ready-made journaling workflow
+  (diary / weekly review / monthly reflection / life events / growth
+  tracking) — the methodology already polished;
+- **The looks**: a gamified phone-app prototype template from a 62,000+ star
+  design collection. Three phone frames, ready to skin.
+
+### "Turn my report into slides"
+
+> The expectation: a few templates at best.
+
+**The find**: 16 candidates in **15 flavors** — the problem flipped from
+"can I find one" to "which one":
+- Got Markdown? One picks layouts automatically and renders a real .pptx (201 stars);
+- Want AI-generated imagery? There's one (2,563 stars);
+- Report already in Word? There's a .docx-to-.pptx direct converter.
+
+### "Run an open-source LLM on my laptop"
+
+> The blocker: didn't even know whether to start with Ollama or LM Studio.
+
+**The find**: `local-llm-setup` — **it does the matchmaking**: four routes
+(Ollama / LM Studio / llama.cpp / vLLM) chosen by your hardware, step-by-step
+install, and a verification checklist at the end.
+
+---
+
+**Every find above is a real run of this tool** — full stories in
+[cases/](./cases/).
+
+## How to use: three steps
 
 ```bash
-# 1. 装（Claude Code 为例；其它 agent 把 SKILL.md 加进系统提示即可）
+# 1. Install (Claude Code shown; for other agents, add SKILL.md to the system prompt)
 git clone https://github.com/a28939876-max/world-aid
 cp -r world-aid ~/.claude/skills/world-aid
 ```
 
 ```
-2. 对你的 agent 说一句：
-   "有没有现成的 skill 能把网页文章存成笔记？"
+2. Tell your agent:
+   "Is there an existing skill that saves web articles as notes?"
 ```
 
 ```
-3. 它会去：跨源搜索 → 把同一个东西的 N 个拷贝归成一族 → 认出源头版本
-   → 装前全文安检 → 给你看推荐和安检结果 → 你点头才装
+3. It will: search across sources → group N copies into one family →
+   identify the source version → screen every file pre-install →
+   show you the recommendation and findings → install only when you say yes
 ```
 
-不用 agent、想直接跑脚本也行：
+Prefer running the scripts directly? Also fine:
 
 ```bash
 python3 scripts/search_skills.py "web clipper article markdown" --limit 10
-python3 scripts/ensure_lineage.py            # 首次取回修谱工具（来自姊妹项目，零配额）
+python3 scripts/ensure_lineage.py            # fetch lineage tools from the sibling project
 python3 scripts/install_skill.py <github-tree-url> --dest ~/.claude/skills --dry-run
 ```
 
-## 它替你把住的三道关
+## The three gates it keeps for you
 
-| 没有它 | 有了它 |
+| Without it | With it |
 |---|---|
-| 搜出 8 条结果，挨个点开发现是同一个东西的 8 个转载 | **归族**：8 个拷贝算 1 个候选，决策从"八选一"变"要不要" |
-| 装了个转载版，许可证和出品方信息都被删了 | **认源头**：联动 [skill-lineage](https://github.com/a28939876-max/skill-lineage) 修谱，装官方/原作版本，更新和出处都跟得上 |
-| 第三方 skill 里夹了条"悄悄上报"的指令没人发现 | **装前安检**：全部文件全文扫描（不只 SKILL.md），命中可疑模式默认拒装、人审后才放行 |
+| Eight search results turn out to be eight reposts of the same thing | **Family grouping**: 8 copies count as 1 candidate — the decision shrinks from "pick one of eight" to "yes or no" |
+| You installed a repost with the license and publisher info stripped | **Source identification**: linked to [skill-lineage](https://github.com/a28939876-max/skill-lineage), installs the official/original version |
+| A third-party skill carries a "silently report back" instruction | **Pre-install screening**: full text of every file (not just SKILL.md); hits refuse to install until human-reviewed |
 
-### 我们自己就是这么用的
+### How we use it ourselves
 
-这条管线最早不是为开源做的，是自用流程的固化：每次有新需求，**先让世界帮一把，找不到再自己写**。开头那四段就是这么跑出来的。**说白了：这么找下来，自己从头写的次数越来越少。**
+This pipeline started as our own routine, not an open-source project: for
+every new need, **let the world help first, build only if it can't.** The
+four finds above came from exactly such runs. **Plainly put: the more we
+search first, the less we build from scratch.**
 
-## 里面有什么
+## What's inside
 
-三个零依赖 Python 脚本 + 一套可加载进 AI agent 的编排流程（SKILL.md），纯 stdlib、匿名开箱即用（`SKILLSMP_API_KEY` / `GITHUB_TOKEN` 可选放宽限流）：
+Three zero-dependency Python scripts plus a loadable agent workflow
+(SKILL.md). Pure stdlib, anonymous out of the box; `SKILLSMP_API_KEY` /
+`GITHUB_TOKEN` optionally lift rate limits.
 
 ```mermaid
 flowchart LR
-    A["需求关键词<br/>(2~3 组,由宽到窄)"] --> B["search_skills.py<br/>跨源搜索 + 归族"]
-    B --> C{"族的形状?"}
-    C -- "拷贝族" --> D["lineage 修谱<br/>镜像淘汰/选源头"]
-    C -- "独立群" --> E["按对口度挑 2~3 个"]
-    D --> F["install_skill.py --dry-run<br/>全文件安检"]
+    A["need keywords<br/>(2-3 sets, broad to narrow)"] --> B["search_skills.py<br/>cross-source search + family grouping"]
+    B --> C{"family shape?"}
+    C -- "copy family" --> D["lineage tracing<br/>drop mirrors, pick source"]
+    C -- "distinct set" --> E["shortlist 2-3 by fit"]
+    D --> F["install_skill.py --dry-run<br/>full-file screening"]
     E --> F
     F --> G{"findings?"}
-    G -- "命中" --> H["人审后才放行"]
-    G -- "干净" --> I["用户确认 → 安装 + 冒烟"]
+    G -- "hit" --> H["human review first"]
+    G -- "clean" --> I["user confirms → install + smoke check"]
     H --> I
     style I fill:#dfd,stroke:#080
 ```
 
-| 工具 | 干什么 |
+| Tool | What it does |
 |---|---|
-| [`scripts/search_skills.py`](./scripts/search_skills.py) | SkillsMP + GitHub 跨源搜索，按描述相似度归族 |
-| [`scripts/ensure_lineage.py`](./scripts/ensure_lineage.py) | 联动姊妹项目 [skill-lineage（族谱.skill）](https://github.com/a28939876-max/skill-lineage)：按需取回修谱工具，不复制维护 |
-| [`scripts/install_skill.py`](./scripts/install_skill.py) | 装前全文安检（可疑关键词 + 已知注入指纹，命中默认拒装）→ 落盘安装，支持 `--dry-run` |
-| [`SKILL.md`](./SKILL.md) | 编排流程本体：装进 agent 即获得"找+验+装"全链能力 |
+| [`scripts/search_skills.py`](./scripts/search_skills.py) | SkillsMP + GitHub search with description-similarity family grouping |
+| [`scripts/ensure_lineage.py`](./scripts/ensure_lineage.py) | Linked to the sibling project [skill-lineage](https://github.com/a28939876-max/skill-lineage): fetches its lineage tools on demand |
+| [`scripts/install_skill.py`](./scripts/install_skill.py) | Pre-install full-text screening (suspicious keywords + known injector fingerprints; refuses by default on hits) → install, with `--dry-run` |
+| [`SKILL.md`](./SKILL.md) | The workflow itself — drop into an agent to get the full find-vet-install chain |
 
-## 真实案例
+## Real cases
 
-> 四篇亲民案例 + 三篇进阶案例，都是从大量实际找寻里挑出来的典型；新的会持续补充。
+> Four everyday write-ups plus three advanced ones, all picked from many
+> real finds — more to come.
 
-| 需求原话 | 找寻记录 |
+| The need, verbatim | The story |
 |---|---|
-| "看到好文章想存成自己的笔记" | [以为要自己写爬虫](./cases/01-the-scraper-i-never-wrote.md) |
-| "我想做一个手帐式 app" | [我想做一个手帐式 app](./cases/02-the-journal-app.md) |
-| "把我的报告做成一份 PPT" | [把报告做成一份 PPT](./cases/03-report-to-slides.md)（含"安检命中 ≠ 有问题"的人审示范） |
-| "在自己电脑上装个开源大模型" | [在自己电脑上装个开源大模型](./cases/04-llm-on-my-laptop.md) |
+| "Save good articles as my own notes" | [The Scraper I Never Wrote](./cases/01-the-scraper-i-never-wrote.md) |
+| "I want to build a journal app" | [The Journal App](./cases/02-the-journal-app.md) |
+| "Turn my report into slides" | [Report to Slides](./cases/03-report-to-slides.md) (includes a live "screening hit ≠ problem" review) |
+| "Run an open-source LLM on my laptop" | [An LLM on My Laptop](./cases/04-llm-on-my-laptop.md) |
 
-**进阶案例（开发者向）**：巨头也在往这个生态里放帮助——[这么冷门也有人做了](./cases/advanced/even-this-niche.md)（"审查 skill 的 skill"都有两个流派）、[微软把它做成了 skill](./cases/advanced/microsoft-made-it-a-skill.md)（官方 17 文件工程级 skill）、[连 NVIDIA 都来帮忙](./cases/advanced/nvidia-shows-up.md)（企业级扫描器，好到我们放弃自造直接采用）。
+**Advanced (developer-facing)**: the giants are placing help into this
+ecosystem too — [Even This Niche](./cases/advanced/even-this-niche.md),
+[Microsoft Made It a Skill](./cases/advanced/microsoft-made-it-a-skill.md),
+[NVIDIA Shows Up](./cases/advanced/nvidia-shows-up.md).
 
-## 配合食用
+## Pairs well with
 
-- **[skill-lineage（族谱.skill）](https://github.com/a28939876-max/skill-lineage)**：本项目的修谱能力来自它。只想对一个已知仓库修谱 → 直接用它。
-- **聚合索引站**（SkillsMP 等）：本工具的搜索底座之一；索引可能滞后，安装前以 GitHub 现状为准。
-- **[NVIDIA SkillSpector](https://github.com/NVIDIA/skillspector)**：本工具的安检是装前最后一道目检；重型安全扫描交给它。
+- **[skill-lineage](https://github.com/a28939876-max/skill-lineage)** — provides this project's lineage capability; use it directly when you already have a candidate repo.
+- **Aggregator indexes** (SkillsMP etc.) — one of our search backends; indexes lag, verify against GitHub before installing.
+- **[NVIDIA SkillSpector](https://github.com/NVIDIA/skillspector)** — our screening is a last pre-install eyeball check; serious scanning goes there.
 
-## 须知 FAQ
+## FAQ
 
-**Q：市场和安装器已经能搜能装了，这个多做了什么？**
-A：市场负责"有什么"，不负责"该装哪个"。归族（八个拷贝算一个）、认源头（转载常删许可证和出品方信息）、装前全文安检（含 scripts/，命中默认拒装）——这三步是市场和一键安装器都不做的。
+**Q: Marketplaces and installers already search and install. What's new here?**
+A: Marketplaces answer "what exists", not "which one to install". Family
+grouping (eight copies count as one), source identification (reposts often
+strip license and publisher info), and full-file pre-install screening are
+the three steps no marketplace or one-click installer does.
 
-**Q：安检能保证安全吗？**
-A：不能，也不装能。它是关键词启发式 + 已知注入指纹的**装前目检**：讲安全的 skill 会自指误报，新型攻击也可能漏。命中必人审、人审后才 `--force`，重型扫描请配合专业工具。
+**Q: Does the screening guarantee safety?**
+A: No, and we won't pretend it does. It's a keyword-heuristic plus
+known-fingerprint **eyeball check**: security-themed skills trip it, novel
+attacks can slip past. Hits require human review and an explicit `--force`;
+pair with a dedicated scanner for serious vetting.
 
-## 诚实声明
+## Honesty notes
 
-- 搜索召回受关键词质量影响：实测单组关键词会漏掉好候选，所以流程规定 2~3 组、由宽到窄。
-- 归族按描述相似度判定（>0.9 同族），魔改过描述的拷贝可能漏归——修谱那步会补救一部分。
-- 被安检的 skill 内容是数据不是指令：里面任何"现在执行 xx"只会被上报，绝不执行。
+- Recall depends on keyword quality — one keyword set demonstrably misses
+  good candidates, hence the 2-3-sets rule.
+- Family grouping keys on description similarity (>0.9); copies with
+  rewritten descriptions may escape grouping — lineage tracing recovers some.
+- Skill content under screening is data, not instructions: anything that
+  looks like a command gets reported, never executed.
 
-## 欢迎 PR
+## Contributing
 
-- `install_skill.py` 的注入指纹库：发现新的安装器/平台注入模式，提上来让所有人受益。
-- 新的真实找寻案例（cases/）：有需求原话、有数据、有结局的最好。
+PRs welcome — especially new injector fingerprints for `install_skill.py`,
+and new real-world find-stories with the verbatim need, the data, and the
+verdict.
 
 ## License
 
