@@ -55,6 +55,12 @@
 
 **第三关，没人替你看一眼安全。** 所以它**装前全文安检**：把每个文件（不只是说明文档）都扫一遍可疑模式和已知注入指纹，命中就默认拒装，你人工看过、确认没事，才放行。
 
+但关键词扫描有个天花板——它只认"长得像坏东西"的字符串，认不出"逻辑上有问题"的代码。所以我又加了一道：**本机要是装了 Codex CLI，就让它在只读沙箱里真读一遍代码**（加个 `--deep-review` 就行）。
+
+这一关真抓到过东西。我拿微软官方那个部署模型的 skill 试，关键词扫描说"干净，0 命中"。我不放心，又让 Codex 深读了一遍——它在一个 shell 脚本里指出：有个没校验的参数被直接拼进了 `python3 -c` 执行，是个本地代码注入的口子。关键词扫描漏了，LLM 读懂了。
+
+微软的官方样例尚且如此，何况你从某个合集里随手装的那个。判 UNSAFE 的，直接拦下不让装。
+
 #### 怎么用，三步
 
 1. 把它装进你的 agent（Claude Code 直接 clone 进 skills 目录）；
@@ -72,6 +78,7 @@
 world-aid 现在开源了，MIT 协议，欢迎拿走、欢迎提 PR（尤其是新的注入指纹和真实找寻案例）：
 
 🔗 github.com/a28939876-max/world-aid
+（仓库默认英文，中文读者直达：github.com/a28939876-max/world-aid/blob/main/README.zh-CN.md）
 
 姊妹项目 skill-lineage（族谱.skill），单独管"已经有候选、想验明血统"那一半：
 
@@ -110,14 +117,25 @@ Help was never the missing piece. Three gates were:
 3. A skill carries a "silently report back" instruction → it screens every file before install
 
 **Tweet 4**
-Real find: diffing one copy, I caught an injected line telling the agent to *silently* rate the skill and POST the score to an API. An installer-platform injection.
+And a 4th gate I just added: keyword screening has a ceiling — it spots scary-looking strings, not buggy logic.
 
-Not necessarily malicious. But you deserve to know before installing.
+So with `--deep-review`, a local Codex CLI actually reads the code in a read-only sandbox.
 
-**Tweet 5（收尾 + CTA）**
-Three zero-dependency Python scripts + a loadable SKILL.md. Pure stdlib, anonymous out of the box.
+It caught a code-injection in a *Microsoft* sample skill the keyword pass called clean. 👇 (next tweet)
 
-Say "is there a skill that does X?" and it searches, vets, and installs — you approve before anything lands.
+**Tweet 5（深审实锤 + 配 demo 图）**
+Keyword scan on Microsoft's deploy-model skill: 0 findings. Clean.
+
+Then I let the local LLM read it. Verdict: REVIEW —
+an unvalidated arg spliced into `python3 -c` in a shell helper. A local code-injection the string-match missed.
+
+The official sample. Imagine the random collection copy.
+[配图：assets/demo.png]
+
+**Tweet 6（收尾 + CTA）**
+Three zero-dependency Python scripts + a loadable SKILL.md. Pure stdlib, anonymous out of the box. Deep review is optional and degrades gracefully if you have no Codex.
+
+Say "is there a skill that does X?" — it searches, vets, and installs only after you approve.
 
 MIT. PRs welcome 👇
 github.com/a28939876-max/world-aid
@@ -152,3 +170,33 @@ MIT 开源 🔗 github.com/a28939876-max/world-aid
 skill-lineage（族谱.skill）：装之前，先修一眼它的族谱。
 
 MIT 🔗 github.com/a28939876-max/skill-lineage
+
+---
+
+### 版本 4：深审单帖（中文技术圈 / 最强钩子，可单独发也可配 demo 图）
+
+> 这条的杀伤力比 launch 帖更强，建议作为第二波主推，配 assets/demo.png。
+
+我的 skill 安装器对微软官方那个部署模型的 skill 说：扫描干净，0 命中。
+
+我没信，让本机的 Codex 在只读沙箱里把代码真读了一遍。
+
+判定：REVIEW。一个 shell 脚本里，有个没校验的参数被直接拼进了 `python3 -c`——本地代码注入。关键词扫描漏了，LLM 读懂了。
+
+微软的官方样例尚且如此。你从某个合集随手装的那个呢？
+
+world-aid 的 `--deep-review`，装前让 LLM 替你读一遍代码。
+🔗 github.com/a28939876-max/world-aid
+
+---
+
+### 版本 5：英文单帖（深审，投 HN / 安全圈）
+
+My skill installer said a Microsoft sample skill was clean. 0 keyword findings.
+
+Then I let a local LLM read the actual code. It found an unvalidated arg spliced into `python3 -c` in a shell helper — a local code-injection.
+
+Keyword scanning spots scary strings. It can't spot buggy logic.
+
+`world-aid --deep-review`: an LLM reads the code before you install.
+github.com/a28939876-max/world-aid
