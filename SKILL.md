@@ -31,12 +31,20 @@ python3 scripts/search_skills.py "<english keywords>" --limit 10
 
 ## ② 族内修谱（选出该装哪个版本）
 
-对 top 族的头部（或独立候选中最有戏的）：
+修谱能力来自姊妹项目 **[skill-lineage（族谱.skill）](https://github.com/a28939876-max/skill-lineage)**——首次使用先取回（raw 直链，不耗 API 配额；已缓存则秒过）：
 
 ```bash
-python3 scripts/find_derivatives.py <owner/repo> --skill-name <skill名>
-python3 scripts/diff_skill.py <版本A的url> <版本B的url>
+python3 scripts/ensure_lineage.py
 ```
+
+然后对 top 族的头部（或独立候选中最有戏的）：
+
+```bash
+python3 scripts/lineage/find_derivatives.py <owner/repo> --skill-name <skill名>
+python3 scripts/lineage/diff_skill.py <版本A的url> <版本B的url>
+```
+
+只想单独修谱（已有候选仓库、不需要找+装全链）→ 直接用 skill-lineage 本尊。
 
 判定要点：
 - `is_mirror: true`（改动 <2%）→ 淘汰拷贝，选原版。**留意拷贝对原版删了什么**——实测见过市场转载剥掉 `license:` 和 `author:` 字段（血统剥离），这正是要装原版的理由。
