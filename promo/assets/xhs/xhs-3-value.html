@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang='zh-CN'><head><meta charset='utf-8'>
+<style>
+:root{
+  --paper:#f4ecda; --card:#fbf6ea; --ink:#3b3127; --ink2:#6f6353;
+  --coral:#e07a4e; --coral-soft:#f0c7b1; --line:#d8cbb2;
+  --warn:#c2502f; --warn-bg:#f7e2d6;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:1080px;height:1440px;overflow:hidden;background:var(--paper);}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;}
+.card{
+  width:1080px;height:1440px;padding:72px 68px;position:relative;
+  background:
+    radial-gradient(circle at 16% 6%, rgba(224,122,78,.07), transparent 42%),
+    radial-gradient(circle at 90% 96%, rgba(224,122,78,.06), transparent 46%),
+    var(--paper);
+  display:flex;flex-direction:column;
+}
+.tag{display:inline-block;align-self:flex-start;font-size:26px;letter-spacing:.16em;color:var(--coral);
+  font-weight:800;border:2px solid var(--coral-soft);border-radius:999px;padding:9px 26px;background:var(--card);}
+.pager{position:absolute;top:78px;right:72px;font-size:26px;font-weight:800;color:var(--coral-soft);letter-spacing:.1em;}
+.frame{background:var(--card);border:2px solid var(--line);border-radius:28px;overflow:hidden;
+  box-shadow:0 10px 30px rgba(90,70,40,.08);}
+.frame img{display:block;width:100%;}
+h1{font-size:84px;line-height:1.16;letter-spacing:-.01em;font-weight:800;}
+h1 .c{color:var(--coral);}
+.sub{font-size:34px;line-height:1.55;color:var(--ink2);}
+.swipe{font-size:30px;color:var(--coral);font-weight:700;}
+.brand{font-size:30px;font-weight:800;}
+.brand b{color:var(--coral);}
+.url{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:27px;color:var(--ink2);}
+/* card2 */
+.flow{display:flex;align-items:center;justify-content:space-between;background:var(--card);
+  border:2px solid var(--line);border-radius:24px;padding:30px 16px;}
+.flow .s{flex:1;text-align:center;}
+.flow .n{font-size:72px;font-weight:800;color:var(--coral);line-height:1;}
+.flow .l{font-size:26px;color:var(--ink2);margin-top:10px;line-height:1.3;}
+.flow .ar{font-size:46px;color:var(--coral-soft);font-weight:800;}
+.row{display:flex;align-items:center;gap:18px;background:var(--card);border:2px solid var(--line);
+  border-radius:18px;padding:22px 26px;}
+.row.w{border-color:var(--warn);background:var(--warn-bg);}
+.row .repo{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:30px;font-weight:600;flex:1;letter-spacing:-.01em;}
+.row.w .repo{color:var(--warn);}
+.row .st{font-size:32px;font-weight:800;color:var(--coral);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.row.w .st{color:var(--warn);}
+.row .d{font-size:27px;color:var(--ink2);white-space:nowrap;}
+.row.w .d{color:var(--warn);font-weight:600;}
+.callout{background:linear-gradient(180deg,#fbf6ea,#f7efdf);border:2px solid var(--coral-soft);
+  border-left:12px solid var(--coral);border-radius:20px;padding:30px 34px;}
+.callout p{font-size:32px;line-height:1.5;}
+.callout .hl{color:var(--warn);font-weight:700;}
+.punch{font-size:40px;font-weight:800;line-height:1.4;}
+.punch .c{color:var(--coral);}
+.step{display:flex;gap:24px;align-items:flex-start;}
+.step .k{width:64px;height:64px;flex:none;border-radius:50%;background:var(--coral);color:#fff;
+  font-size:36px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.step .t{font-size:36px;line-height:1.4;padding-top:6px;}
+.step .t b{color:var(--coral);}
+.tags{font-size:28px;color:var(--coral);font-weight:700;line-height:1.6;}
+.spacer{flex:1;}
+</style>
+</head><body>
+<div class="card">
+  <span class="tag">我图的就这一下</span>
+  <div class="pager">3 / 4</div>
+  <div style="height:54px"></div>
+  <h1>你说要干嘛，<br><span class="c">它把工具找齐</span></h1>
+  <div style="height:30px"></div>
+  <p class="sub">找工具这事太耗人，明明早有人做好了，<br>你还得满网翻。让它替你跑腿找齐，你只管挑。</p>
+  <div style="height:40px"></div>
+  <div class="frame"><img src="file:///Users/1mmm/world-aid/promo/assets/concept-roundup.png"></div>
+  <div class="spacer"></div>
+  <p class="sub" style="font-size:30px">并重、标源头、装前安检——都是它顺手做的。</p>
+</div>
+</body></html>

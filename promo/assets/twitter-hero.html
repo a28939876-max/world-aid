@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang='zh-CN'><head><meta charset='utf-8'><style>
+:root{--paper:#f4ecda;--card:#fbf6ea;--ink:#3b3127;--ink2:#6f6353;--coral:#e07a4e;--coral-soft:#f0c7b1;--line:#d8cbb2;--warn:#c2502f;}
+*{box-sizing:border-box;margin:0;padding:0;}html,body{width:1600px;height:900px;overflow:hidden;}
+body{font-family:"PingFang SC","Hiragino Sans GB",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;
+ background:radial-gradient(circle at 12% 10%,rgba(224,122,78,.08),transparent 40%),radial-gradient(circle at 92% 92%,rgba(224,122,78,.06),transparent 45%),var(--paper);
+ display:flex;}
+.left{width:760px;padding:84px 60px 84px 84px;display:flex;flex-direction:column;justify-content:center;}
+.tag{align-self:flex-start;font-size:24px;letter-spacing:.16em;color:var(--coral);font-weight:800;border:2px solid var(--coral-soft);border-radius:999px;padding:8px 24px;background:var(--card);}
+h1{font-size:76px;line-height:1.15;font-weight:800;margin:34px 0 0;}
+h1 .c{color:var(--coral);}
+.sub{font-size:30px;line-height:1.5;color:var(--ink2);margin-top:26px;}
+.brand{margin-top:40px;font-size:28px;font-weight:800;}
+.brand b{color:var(--coral);} .url{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:24px;color:var(--ink2);margin-top:6px;}
+.right{flex:1;background:var(--card);border-left:2px dashed var(--line);padding:74px 60px;display:flex;flex-direction:column;justify-content:center;gap:0;}
+.rh{font-size:28px;font-weight:800;color:var(--ink);margin-bottom:30px;}
+.flow{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px;}
+.flow .s{text-align:center;flex:1;} .flow .n{font-size:64px;font-weight:800;color:var(--coral);line-height:1;} .flow .l{font-size:22px;color:var(--ink2);margin-top:8px;}
+.flow .ar{font-size:40px;color:var(--coral-soft);font-weight:800;}
+.note{background:#f7e2d6;border-left:10px solid var(--warn);border-radius:14px;padding:24px 28px;font-size:26px;line-height:1.45;color:var(--warn);font-weight:600;}
+.punch{margin-top:30px;font-size:32px;font-weight:800;line-height:1.4;}.punch .c{color:var(--coral);}
+</style></head><body>
+<div class="left">
+  <span class="tag">WORLD-AID · 开源 skill</span>
+  <h1>你说要干嘛，<br><span class="c">它替你把工具找齐</span></h1>
+  <p class="sub">你不用满世界自己翻 GitHub。<br>说一句需求 → 它找齐、并重、标源头、装前安检 → 你挑一个顺手的。</p>
+  <p class="brand">world-<b>aid</b></p>
+  <p class="url">github.com/a28939876-max/world-aid</p>
+</div>
+<div class="right">
+  <div class="rh">一次真实的找寻 · 「把 YouTube 视频转成文字」</div>
+  <div class="flow">
+    <div class="s"><div class="n">13</div><div class="l">个候选</div></div><div class="ar">→</div>
+    <div class="s"><div class="n">9</div><div class="l">个不同实现</div></div><div class="ar">→</div>
+    <div class="s"><div class="n">1</div><div class="l">挑最顺手</div></div>
+  </div>
+  <div class="note">⚠ 那个最唬人的 7★ Tor 版，codex 审出会偷偷 sudo 起服务——差点装错</div>
+  <div class="punch">找得<span class="c">全</span>，才看得出<br>「最唬人的」≠「最适合你的」。</div>
+</div>
+</body></html>
