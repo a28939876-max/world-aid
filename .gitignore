@@ -1,2 +1,6 @@
 .acceptance/
 scripts/lineage/
+.DS_Store
+**/.DS_Store
+promo/assets/.playwright-cli/
+promo/*.zip
