@@ -169,6 +169,7 @@ ecosystem too — [Even This Niche](./cases/advanced/even-this-niche.md),
 ## Pairs well with
 
 - **[skill-lineage](https://github.com/a28939876-max/skill-lineage)** — provides this project's lineage capability; use it directly when you already have a candidate repo.
+- **[world-intro](https://github.com/a28939876-max/world-intro)** — the open-source launch pipeline that shipped this repo (and its sibling); point it at your own private skill to take it public.
 - **Aggregator indexes** (SkillsMP etc.) — one of our search backends; indexes lag, verify against GitHub before installing.
 - **[NVIDIA SkillSpector](https://github.com/NVIDIA/skillspector)** — our screening is a last pre-install eyeball check; serious scanning goes there.
 

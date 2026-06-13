@@ -142,6 +142,7 @@ flowchart LR
 ## 配合食用
 
 - **[skill-lineage（族谱.skill）](https://github.com/a28939876-max/skill-lineage)**：本项目的修谱能力来自它。只想对一个已知仓库修谱 → 直接用它。
+- **[world-intro](https://github.com/a28939876-max/world-intro)**：把这两个仓库开源出去的发布管线；想把你自己的私有 skill 推上线，就用它。
 - **聚合索引站**（SkillsMP 等）：本工具的搜索底座之一；索引可能滞后，安装前以 GitHub 现状为准。
 - **[NVIDIA SkillSpector](https://github.com/NVIDIA/skillspector)**：本工具的安检是装前最后一道目检；重型安全扫描交给它。
 
