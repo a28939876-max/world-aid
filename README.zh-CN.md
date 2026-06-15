@@ -141,6 +141,7 @@ flowchart LR
 
 ## 配合食用
 
+- **[skill-hunter-company（skill 猎头公司）](https://github.com/a28939876-max/skill-hunter-company)**：架在本引擎之上的完整猎头公司。world-aid 管搜罗与落位，猎头公司再加背调、定制融合和长期名册管理。
 - **[skill-lineage（族谱.skill）](https://github.com/a28939876-max/skill-lineage)**：本项目的修谱能力来自它。只想对一个已知仓库修谱 → 直接用它。
 - **[world-intro](https://github.com/a28939876-max/world-intro)**：把这两个仓库开源出去的发布管线；想把你自己的私有 skill 推上线，就用它。
 - **聚合索引站**（SkillsMP 等）：本工具的搜索底座之一；索引可能滞后，安装前以 GitHub 现状为准。
