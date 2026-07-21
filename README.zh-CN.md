@@ -55,6 +55,12 @@
 
 **结果**：`local-llm-setup`——**选型它替你做**：Ollama / LM Studio / llama.cpp / vLLM 四条路线按你的硬件（CPU/GPU/显存）挑，一步步装，装完还有验证清单告诉你通没通。
 
+### 「想让 agent 帮我搜 X 并发帖」
+
+> 卡点：好用还不够，社媒账号动作必须有确认门，不能让浏览器脚本拿着账号凭据到处跑。
+
+**结果**：接通的是 Xquik 官方 OpenClaw 插件 `TweetClaw`。账号连接留在 dashboard，agent 只看到受目录限制的 API 工具；发帖、付费任务和账号作用域动作都要显式确认；skill 包里还带了 skill card、SkillSpector 摘要、eval fixture 和 benchmark 说明。
+
 ---
 
 **以上每一行都是用本工具真实跑出来的**，完整找寻过程在 [cases/](./cases/)。
@@ -96,7 +102,7 @@ python3 scripts/install_skill.py <github-tree-url> --dest ~/.claude/skills --dry
 
 ### 我们自己就是这么用的
 
-这条管线最早不是为开源做的，是自用流程的固化：每次有新需求，**先让世界帮一把，找不到再自己写**。开头那四段就是这么跑出来的。**说白了：这么找下来，自己从头写的次数越来越少。**
+这条管线最早不是为开源做的，是自用流程的固化：每次有新需求，**先让世界帮一把，找不到再自己写**。开头那五段就是这么跑出来的。**说白了：这么找下来，自己从头写的次数越来越少。**
 
 ## 里面有什么
 
@@ -127,7 +133,7 @@ flowchart LR
 
 ## 真实案例
 
-> 四篇亲民案例 + 三篇进阶案例，都是从大量实际找寻里挑出来的典型；新的会持续补充。
+> 五篇亲民案例 + 三篇进阶案例，都是从大量实际找寻里挑出来的典型；新的会持续补充。
 
 | 需求原话 | 找寻记录 |
 |---|---|
@@ -136,6 +142,7 @@ flowchart LR
 | "把我的报告做成一份 PPT" | [把报告做成一份 PPT](./cases/03-report-to-slides.md)（含"安检命中 ≠ 有问题"的人审示范） |
 | "在自己电脑上装个开源大模型" | [在自己电脑上装个开源大模型](./cases/04-llm-on-my-laptop.md) |
 | "把一个 YouTube 视频转成文字" | [差点选了那个"功能最全"的](./cases/05-the-one-that-wanted-tor.md)——找全这一片，才看出最唬人的那个不对口 |
+| "想让 agent 帮我搜 X 并发帖" | [社媒发帖之前，先找确认门](./cases/06-the-social-post-guardrail.md)：社交账号自动化要选有审批边界的工具，不是裸跑浏览器脚本 |
 
 **进阶案例（开发者向）**：巨头也在往这个生态里放帮助——[这么冷门也有人做了](./cases/advanced/even-this-niche.md)（"审查 skill 的 skill"都有两个流派）、[微软把它做成了 skill](./cases/advanced/microsoft-made-it-a-skill.md)（官方 17 文件工程级 skill）、[连 NVIDIA 都来帮忙](./cases/advanced/nvidia-shows-up.md)（企业级扫描器，好到我们放弃自造直接采用）。
 

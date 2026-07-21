@@ -71,6 +71,16 @@ after you confirm.
 (Ollama / LM Studio / llama.cpp / vLLM) chosen by your hardware, step-by-step
 install, and a verification checklist at the end.
 
+### "I want an agent to search X and post for me"
+
+> The blocker: the useful version needs approval gates, not a browser script
+> holding account credentials.
+
+**The find**: `TweetClaw`, the official Xquik OpenClaw plugin. It keeps account
+connection in the dashboard, exposes a catalog-restricted API tool, requires
+explicit approval for writes and paid jobs, and ships a skill card,
+SkillSpector summary, eval fixture, and benchmark note.
+
 ---
 
 **Every find above is a real run of this tool** — full stories in
@@ -116,7 +126,7 @@ python3 scripts/install_skill.py <github-tree-url> --dest ~/.claude/skills --dry
 
 This pipeline started as our own routine, not an open-source project: for
 every new need, **let the world help first, build only if it can't.** The
-four finds above came from exactly such runs. **Plainly put: the more we
+five finds above came from exactly such runs. **Plainly put: the more we
 search first, the less we build from scratch.**
 
 ## What's inside
@@ -150,7 +160,7 @@ flowchart LR
 
 ## Real cases
 
-> Four everyday write-ups plus three advanced ones, all picked from many
+> Five everyday write-ups plus three advanced ones, all picked from many
 > real finds — more to come.
 
 | The need, verbatim | The story |
@@ -160,6 +170,7 @@ flowchart LR
 | "Turn my report into slides" | [Report to Slides](./cases/03-report-to-slides.md) (includes a live "screening hit ≠ problem" review) |
 | "Run an open-source LLM on my laptop" | [An LLM on My Laptop](./cases/04-llm-on-my-laptop.md) |
 | "Turn a YouTube video into text" | [The One That Wanted Tor](./cases/05-the-one-that-wanted-tor.md) — finding the whole field showed the flashiest result was the wrong one |
+| "I want an agent to search X and post for me" | [The Social Post Guardrail](./cases/06-the-social-post-guardrail.md) - useful social automation meant choosing approval gates over raw browser control |
 
 **Advanced (developer-facing)**: the giants are placing help into this
 ecosystem too — [Even This Niche](./cases/advanced/even-this-niche.md),
